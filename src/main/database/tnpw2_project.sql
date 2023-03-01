@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `users`
+-- Struktura tabulky `user`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(60) NOT NULL,
   `surname` varchar(60) NOT NULL,
@@ -38,10 +38,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Vypisuji data pro tabulku `users`
+-- Vypisuji data pro tabulku `user`
 --
 
-INSERT INTO `users` (`id`, `name`, `surname`, `username`, `email`, `password`, `type`) VALUES
+INSERT INTO `user` (`id`, `name`, `surname`, `username`, `email`, `password`, `type`) VALUES
 (1, 'Martin', 'Malíř', 'malirma', 'martin.malir@gmail.com', '$2a$10$fN77Myv1yJ4pC/qLDxtcjuLYoQ36V7NAZrZh4ihsK.dkMJHECxwJG', 'Admin');
 
 --
@@ -49,9 +49,9 @@ INSERT INTO `users` (`id`, `name`, `surname`, `username`, `email`, `password`, `
 --
 
 --
--- Indexy pro tabulku `users`
+-- Indexy pro tabulku `user`
 --
-ALTER TABLE `users`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -59,9 +59,9 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT pro tabulku `users`
+-- AUTO_INCREMENT pro tabulku `user`
 --
-ALTER TABLE `users`
+ALTER TABLE `user`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 

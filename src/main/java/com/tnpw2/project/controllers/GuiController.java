@@ -9,21 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GuiController {
 
     @GetMapping
+    public String initStartupPage(){
+        return "permit_all/index";
+    }
+
+    @GetMapping(path = "/index")
     public String initIndexPage(){
         return "permit_all/index";
     }
 
-    @GetMapping("/register_page")
+    @GetMapping(path = "/register_page")
     public String initRegisterPage(){
         return "permit_all/register_page";
     }
 
-    @GetMapping("/login_page")
+    @GetMapping(path = "/login_page")
     public String initLoginPage(){
         return "permit_all/login_page";
     }
 
-    @GetMapping("/blog")
+    @GetMapping(path = "/blog")
     public String initBlogPage(){
         return "permit_logged/blog_page";
     }

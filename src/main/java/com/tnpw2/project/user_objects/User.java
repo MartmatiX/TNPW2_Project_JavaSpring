@@ -1,7 +1,15 @@
 package com.tnpw2.project.user_objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;
@@ -17,7 +25,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.type = type;
+        this.type = Type.User;
     }
 
     public User(String name, String surname, String username, String email, String password, Type type) {
@@ -26,7 +34,11 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.type = type;
+        this.type = Type.User;
+    }
+
+    public User() {
+
     }
 
     public Long getId() {

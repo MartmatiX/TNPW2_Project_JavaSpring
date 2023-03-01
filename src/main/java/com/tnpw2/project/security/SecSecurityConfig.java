@@ -32,9 +32,7 @@ public class SecSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/blog")
                 .authenticated()
-                .requestMatchers("/login_page", "/register_page", "/index", "/login")
-                .permitAll()
-                .requestMatchers("/")
+                .requestMatchers("/**")
                 .permitAll()
                 .and()
                 .formLogin();
