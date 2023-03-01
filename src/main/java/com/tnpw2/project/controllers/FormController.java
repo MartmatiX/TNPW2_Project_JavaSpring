@@ -21,10 +21,17 @@ public class FormController {
     @PostMapping(path = "/validate_registration")
     public String validate_registration(@ModelAttribute User formUser){
         User user = new User(formUser.getId(), formUser.getName(), formUser.getSurname(), formUser.getUsername(), formUser.getEmail(), formUser.getPassword(), Type.User);
+        // TODO: 01.03.2023 validate formUser data
         if (userService.registerUser(user)){
             return "redirect:index?registration=successful";
         }
         return "redirect:index?registration=failure";
+    }
+
+    @PostMapping(path = "/validate_login")
+    public String validate_login(){
+        // TODO: 01.03.2023 finish this
+        return "redirect:index";
     }
 
 }

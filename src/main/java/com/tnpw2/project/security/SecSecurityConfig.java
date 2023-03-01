@@ -35,7 +35,9 @@ public class SecSecurityConfig {
                 .requestMatchers("/**")
                 .permitAll()
                 .and()
-                .formLogin();
+                .formLogin()
+                .loginPage("/login_page")
+                .loginProcessingUrl("/validate_login");
         return http.build();
     }
 
