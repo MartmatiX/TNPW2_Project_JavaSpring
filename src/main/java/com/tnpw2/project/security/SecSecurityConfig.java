@@ -21,7 +21,7 @@ public class SecSecurityConfig {
     public void configAuthentication(AuthenticationManagerBuilder builder) throws Exception{
         builder.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
                 .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password, role FROM users WHERE username = ?")
+                .usersByUsernameQuery("SELECT username, password FROM users WHERE username = ?")
                 .authoritiesByUsernameQuery("SELECT username, role FROM users WHERE username = ?");
     }
 
@@ -35,7 +35,9 @@ public class SecSecurityConfig {
                 .requestMatchers("/login_page", "/register_page", "/index", "/login")
                 .permitAll()
                 .requestMatchers("/")
-                .permitAll();
+                .permitAll()
+                .and()
+                .formLogin();
         return http.build();
     }
 
