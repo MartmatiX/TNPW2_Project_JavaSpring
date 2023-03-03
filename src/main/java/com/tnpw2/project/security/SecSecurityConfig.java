@@ -1,11 +1,13 @@
 package com.tnpw2.project.security;
 
+import com.tnpw2.project.user_objects.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -18,11 +20,12 @@ public class SecSecurityConfig {
     @Autowired
     private DataSource dataSource;
 
-    public void configAuthentication(AuthenticationManagerBuilder builder) throws Exception{
-        builder.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+        auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password FROM users WHERE username = ?")
-                .authoritiesByUsernameQuery("SELECT username, role FROM users WHERE username = ?");
+                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT username, password, type FROM users WHERE username = ?");
     }
 
     @Bean
@@ -30,14 +33,13 @@ public class SecSecurityConfig {
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/blog")
-                .authenticated()
+//                .requestMatchers("/blog")
+//                .authenticated()
                 .requestMatchers("/**")
-                .permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login_page")
-                .loginProcessingUrl("/validate_login");
+                .permitAll();
+//                .and()
+//                .formLogin()
+//                .loginPage("/login_page");
         return http.build();
     }
 

@@ -1,11 +1,9 @@
 package com.tnpw2.project.user_objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -17,28 +15,40 @@ public class User {
     private String email;
     private String password;
     private Type type;
+    private Integer enabled;
 
-    public User(Long id, String name, String surname, String username, String email, String password, Type type) {
+    public User() {
+    }
+
+    public User(String name, String surname, String username, String email, String password, Type type, Integer enabled) {
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.type = type;
+        this.enabled = enabled;
+    }
+
+    public User(Long id, String name, String surname, String username, String email, String password, Type type, Integer enabled) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.type = Type.User;
+        this.type = type;
+        this.enabled = enabled;
     }
 
-    public User(String name, String surname, String username, String email, String password, Type type) {
+    public User(Long id, String name, String surname, String username, String email, Type type, Integer enabled) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.email = email;
-        this.password = password;
-        this.type = Type.User;
-    }
-
-    public User() {
-
+        this.type = type;
+        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -95,5 +105,13 @@ public class User {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public Integer getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Integer enabled) {
+        this.enabled = enabled;
     }
 }

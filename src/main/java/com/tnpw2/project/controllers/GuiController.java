@@ -1,6 +1,9 @@
 package com.tnpw2.project.controllers;
 
+import com.tnpw2.project.user_objects.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,7 +32,9 @@ public class GuiController {
     }
 
     @GetMapping(path = "/blog")
-    public String initBlogPage(){
+    public String initBlogPage(Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
         return "permit_logged/blog_page";
     }
 }
