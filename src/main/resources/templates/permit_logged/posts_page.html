@@ -1,6 +1,6 @@
 <div th:insert="~{requires/header}"></div>
 <main>
-    <table>
+    <table class="table table-bordered table-dark">
         <tr th:each="post: ${posts}">
             <td th:text="${post?.username}"></td>
             <td th:text="${post?.header}"></td>

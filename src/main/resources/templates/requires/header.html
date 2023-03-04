@@ -4,21 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/master.css}">
     <title>Blog</title>
 </head>
 <body>
-    <nav>
+    <nav class="d-flex flex-row justify-content-between">
         <ul>
             <li>
-                <a th:href="@{/}">Index</a>
+                <a th:href="@{/}" class="btn btn-dark">Index</a>
             </li>
         </ul>
-        <ul>
-            <li>
-                <a th:href="@{/register_page}">Register</a>
-                <a th:href="@{/login_page}">Log in</a>
-                <p th:if="${session.user != null }"><a th:href="@{/blog}">Blog</a></p>
-                <p th:if="${session.user != null }"><a th:href="@{/profile}">Profile</a></p>
+        <ul class="d-flex flex-row">
+            <li th:style="${session.user == null ? 'display:block' : 'display:none'}">
+                <a th:href="@{/register_page}" class="btn btn-dark">Register</a>
+            </li>
+            <li th:style="${session.user == null ? 'display:block' : 'display:none'}">
+                <a th:href="@{/login_page}" class="btn btn-dark">Log in</a>
+            </li>
+
+            <li th:style="${session.user != null ? 'display:block' : 'display:none'}">
+                <p th:if="${session.user != null }"><a th:href="@{/blog}" class="btn btn-dark">Blog</a></p>
+            </li>
+            <li th:style="${session.user != null ? 'display:block' : 'display:none'}">
+                <p th:if="${session.user != null }"><a th:href="@{/profile}" class="btn btn-dark">Profile</a></p>
             </li>
         </ul>
     </nav>

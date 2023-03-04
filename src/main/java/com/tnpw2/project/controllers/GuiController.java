@@ -37,12 +37,18 @@ public class GuiController {
     }
 
     @GetMapping(path = "/register_page")
-    public String initRegisterPage() {
+    public String initRegisterPage(HttpSession session) {
+        if (alreadyAuthorized(session)){
+            return "redirect:/profile?status=authorized";
+        }
         return "permit_all/register_page";
     }
 
     @GetMapping(path = "/login_page")
-    public String initLoginPage() {
+    public String initLoginPage(HttpSession session) {
+        if (alreadyAuthorized(session)){
+            return "redirect:/profile?status=authorized";
+        }
         return "permit_all/login_page";
     }
 
@@ -90,6 +96,10 @@ public class GuiController {
         }
         User userFromSession = (User) session.getAttribute("user");
         return userService.findByUsername(userFromSession.getUsername()).isPresent();
+    }
+
+    private boolean alreadyAuthorized(HttpSession session){
+        return session.getAttribute("user") != null;
     }
 
 }
