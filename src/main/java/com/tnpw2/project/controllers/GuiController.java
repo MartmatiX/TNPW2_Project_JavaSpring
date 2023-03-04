@@ -33,8 +33,15 @@ public class GuiController {
 
     @GetMapping(path = "/blog")
     public String initBlogPage(Model model, HttpSession session){
-        User user = (User) session.getAttribute("user");
+        final User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         return "permit_logged/blog_page";
+    }
+
+    @GetMapping(path = "/profile")
+    public String initUserProfile(Model model, HttpSession session){
+        final User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        return "permit_logged/user_page";
     }
 }

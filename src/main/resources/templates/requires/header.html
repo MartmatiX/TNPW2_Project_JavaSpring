@@ -17,6 +17,8 @@
             <li>
                 <a th:href="@{/register_page}">Register</a>
                 <a th:href="@{/login_page}">Log in</a>
+                <p th:if="${session.user != null }"><a th:href="@{/blog}">Blog</a></p>
+                <p th:if="${session.user != null }"><a th:href="@{/profile}">Profile</a></p>
             </li>
         </ul>
     </nav>

@@ -1,6 +1,9 @@
 package com.tnpw2.project.controllers;
 
+import com.tnpw2.project.database_operations.PostRepository;
+import com.tnpw2.project.database_operations.PostService;
 import com.tnpw2.project.database_operations.UserService;
+import com.tnpw2.project.post_objects.Post;
 import com.tnpw2.project.user_objects.Type;
 import com.tnpw2.project.user_objects.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,11 +21,14 @@ import java.util.Optional;
 public class FormController {
 
     private final UserService userService;
+    private final PostService postService;
+
     private final BCryptPasswordEncoder encoder;
 
     @Autowired
-    public FormController(UserService userService) {
+    public FormController(UserService userService, PostService postService) {
         this.userService = userService;
+        this.postService = postService;
         this.encoder = new BCryptPasswordEncoder();
     }
 
@@ -54,11 +60,32 @@ public class FormController {
                 return "redirect:login_page?password=no-match";
             }
             User userFromOptional = byUsernameOptional.get();
-            User userToSession = new User(userFromOptional.getId(), userFromOptional.getName(), userFromOptional.getSurname(), userFromOptional.getUsername(), userFromOptional.getEmail(), userFromOptional.getType(), userFromOptional.getEnabled());
+            final User userToSession = new User(userFromOptional.getId(), userFromOptional.getName(), userFromOptional.getSurname(), userFromOptional.getUsername(), userFromOptional.getEmail(), userFromOptional.getType(), userFromOptional.getEnabled());
             session.setAttribute("user", userToSession);
             return "redirect:blog?login=success";
         }
-        return "redirect:index";
+        return "redirect:login_page?login=error";
+    }
+
+    @PostMapping(path = "/blog/add_post")
+    public String add_post(@ModelAttribute Optional<Post> post, HttpSession session){
+        if (post.isPresent()){
+            Post postPresent = post.get();
+            if (postPresent.getHeader().trim().equals("")){
+                return "redirect:/blog?header=emtpy";
+            }
+            if (postPresent.getText().trim().equals("")){
+                return "redirect:/blog?text=empty";
+            }
+            final User userFromSession = (User) session.getAttribute("user");
+            if (userFromSession == null){
+                return "redirect:/blog?user=unauthorized";
+            }
+            final Post postToSave = new Post(postPresent.getHeader(), postPresent.getText(), userFromSession.getId());
+            postService.createPost(postToSave);
+            return "redirect:/blog?status=post_created";
+        }
+        return "redirect:/blog?status=error";
     }
 
 }
