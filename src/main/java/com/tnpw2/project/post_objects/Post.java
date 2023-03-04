@@ -12,6 +12,7 @@ public class Post {
     private String header;
     private String text;
     private Long user_id;
+    private String username;
 
     public Post() {
     }
@@ -59,5 +60,13 @@ public class Post {
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

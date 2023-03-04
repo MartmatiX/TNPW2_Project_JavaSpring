@@ -2,8 +2,9 @@
 <main>
     <table>
         <tr th:each="post: ${posts}">
-            <td th:text="${post.header}"></td>
-            <td th:text="${post.text}"></td>
+            <td th:text="${post?.username}"></td>
+            <td th:text="${post?.header}"></td>
+            <td th:text="${post?.text}"></td>
         </tr>
     </table>
 </main>
