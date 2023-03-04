@@ -1,12 +1,10 @@
 package com.tnpw2.project.controllers;
 
-import com.tnpw2.project.database_operations.PostRepository;
 import com.tnpw2.project.database_operations.PostService;
 import com.tnpw2.project.database_operations.UserService;
 import com.tnpw2.project.post_objects.Post;
 import com.tnpw2.project.user_objects.Type;
 import com.tnpw2.project.user_objects.User;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.net.http.HttpRequest;
 import java.util.Optional;
 
 @Controller

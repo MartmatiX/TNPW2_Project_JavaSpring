@@ -2,12 +2,7 @@
 <main>
     <h1>Welcome to our Blog!</h1>
     <h1 th:text="${user?.username}"></h1>
-    <form action="/blog/add_post" method="post">
-        <label for="header">Header</label>
-        <input type="text" name="header">
-        <label for="text">Text</label>
-        <input type="text" name="text">
-        <input type="submit" value="Add Post">
-    </form>
+    <a th:href="@{/blog/posts}">See posts</a>
+    <a th:href="@{/blog/create_post_page}">Create post</a>
 </main>    
 <div th:insert="~{requires/footer}"></div>

@@ -4,6 +4,8 @@ import com.tnpw2.project.post_objects.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostService {
 
@@ -17,5 +19,9 @@ public class PostService {
     public boolean createPost(Post post){
         postRepository.save(post);
         return true;
+    }
+
+    public List<Post> getAllPosts(){
+        return postRepository.selectAllPosts();
     }
 }

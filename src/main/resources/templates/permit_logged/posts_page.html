@@ -1,0 +1,10 @@
+<div th:insert="~{requires/header}"></div>
+<main>
+    <table>
+        <tr th:each="post: ${posts}">
+            <td th:text="${post.header}"></td>
+            <td th:text="${post.text}"></td>
+        </tr>
+    </table>
+</main>
+<div th:insert="~{requires/footer}"></div>
