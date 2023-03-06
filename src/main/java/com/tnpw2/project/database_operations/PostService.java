@@ -24,4 +24,8 @@ public class PostService {
     public List<Post> getAllPosts(){
         return postRepository.selectAllPosts();
     }
+
+    public List<Post> getAllUserPosts(Long user_id){
+        return postRepository.selectAllUserPosts(user_id);
+    }
 }

@@ -12,6 +12,7 @@ public class Post {
     private String header;
     private String text;
     private Long user_id;
+
     private String username;
 
     public Post() {

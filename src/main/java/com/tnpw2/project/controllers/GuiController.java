@@ -82,13 +82,26 @@ public class GuiController {
         return "redirect:/login_page?user=error";
     }
 
-    @GetMapping(path = "/blog/create_post_page")
+    @GetMapping(path = "/blog/create_post")
     public String initCreatePostPage(HttpSession session){
         if (validateUserSession(session)){
             return "permit_logged/create_post_page";
         }
         return "redirect:/login_page?user=error";
     }
+
+    @GetMapping(path = "/blog/my_posts")
+    public String initMyPostsPage(Model model, HttpSession session){
+        if (validateUserSession(session)){
+            User user = (User) session.getAttribute("user");
+            List<Post> allUserPosts = postService.getAllUserPosts(user.getId());
+            model.addAttribute("posts", allUserPosts);
+            return "permit_logged/my_posts_page";
+        }
+        return "redirect:/login_page?user=error";
+    }
+
+    // TODO: 06.03.2023 add post editing page
 
     private boolean validateUserSession(HttpSession session) {
         if (session.getAttribute("user") == null) {

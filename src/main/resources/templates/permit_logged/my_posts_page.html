@@ -1,0 +1,13 @@
+<div th:insert="~{requires/header}"></div>
+    <main>
+        <table class="table table-bordered table-dark">
+            <tr th:each="post: ${posts}">
+                <td th:text="${post?.header}"></td>
+                <td th:text="${post?.text}"></td>
+                <td>
+                    <a th:href="@{/blog/my_posts?{id}(id=${post?.id})}">More</a>
+                </td>
+            </tr>
+        </table>
+    </main>
+<div th:insert="~{requires/footer}"></div>

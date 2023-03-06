@@ -3,6 +3,7 @@
     <h1>Welcome to our Blog!</h1>
     <h1 th:text="${user?.username}"></h1>
     <a th:href="@{/blog/posts}">See posts</a>
-    <a th:href="@{/blog/create_post_page}">Create post</a>
+    <a th:href="@{/blog/create_post}">Create post</a>
+    <a th:href="@{/blog/my_posts}">My posts</a>
 </main>    
 <div th:insert="~{requires/footer}"></div>

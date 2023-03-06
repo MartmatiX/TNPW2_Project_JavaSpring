@@ -13,4 +13,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT p.*, u.username FROM posts p JOIN users u ON p.user_id = u.id LIMIT 100", nativeQuery = true)
     List<Post> selectAllPosts();
 
+    @Query(value = "SELECT p.*, u.username FROM posts p JOIN users u ON p.user_id = u.id WHERE p.user_id = ?", nativeQuery = true)
+    List<Post> selectAllUserPosts(Long user_id);
+
 }
