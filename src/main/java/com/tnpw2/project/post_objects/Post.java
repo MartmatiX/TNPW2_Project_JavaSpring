@@ -13,6 +13,7 @@ public class Post {
     private String text;
     private Long user_id;
 
+    @Column(insertable = false)
     private String username;
 
     public Post() {
