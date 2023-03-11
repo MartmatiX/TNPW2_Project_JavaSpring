@@ -1,5 +1,6 @@
 <div th:insert="~{requires/header}"></div>
 <main>
+  <a th:href="@{/blog}" class="btn btn-dark">Back</a>
   <form action="/blog/add_post" method="post">
     <label for="header">Header</label>
     <input type="text" name="header" />

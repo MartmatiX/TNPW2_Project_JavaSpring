@@ -5,6 +5,7 @@ import com.tnpw2.project.database_operations.UserService;
 import com.tnpw2.project.post_objects.Post;
 import com.tnpw2.project.user_objects.Type;
 import com.tnpw2.project.user_objects.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,15 @@ public class FormController {
             return "redirect:/blog?status=error";
         }
         return "redirect:/blog?status=error";
+    }
+
+    @PostMapping("/profile/logout")
+    public String logOut(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if (session != null){
+            session.invalidate();
+        }
+        return "redirect:/login_page";
     }
 
     private boolean validateUserSession(HttpSession session) {

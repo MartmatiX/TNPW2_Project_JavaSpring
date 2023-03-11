@@ -1,5 +1,8 @@
 <div th:insert="~{requires/header}"></div>
 <main>
     <h2>Hello user: <h1 th:text="${user?.username}"></h1></h2>
+    <form action="profile/logout" method="post">
+        <input type="submit" value="Log out">
+    </form>
 </main>    
 <div th:insert="~{requires/footer}"></div>

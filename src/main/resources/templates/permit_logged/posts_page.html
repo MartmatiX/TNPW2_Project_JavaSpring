@@ -1,5 +1,6 @@
 <div th:insert="~{requires/header}"></div>
 <main>
+    <a th:href="@{/blog}" class="btn btn-dark">Back</a>
     <table class="table table-bordered table-dark">
         <tr th:each="post: ${posts}">
             <td th:text="${post?.username}"></td>
