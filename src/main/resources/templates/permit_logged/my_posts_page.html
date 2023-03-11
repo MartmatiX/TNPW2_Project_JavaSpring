@@ -5,7 +5,7 @@
                 <td th:text="${post?.header}"></td>
                 <td th:text="${post?.text}"></td>
                 <td>
-                    <a th:href="@{/blog/my_posts?{id}(id=${post?.id})}">More</a>
+                    <a th:href="@{/blog/my_posts/{id}(id=${post?.id})}">More</a>
                 </td>
             </tr>
         </table>

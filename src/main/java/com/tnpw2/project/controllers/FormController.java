@@ -6,12 +6,15 @@ import com.tnpw2.project.post_objects.Post;
 import com.tnpw2.project.user_objects.Type;
 import com.tnpw2.project.user_objects.User;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -65,17 +68,17 @@ public class FormController {
     }
 
     @PostMapping(path = "/blog/add_post")
-    public String add_post(@ModelAttribute Optional<Post> post, HttpSession session){
-        if (post.isPresent()){
+    public String add_post(@ModelAttribute Optional<Post> post, HttpSession session) {
+        if (post.isPresent()) {
             Post postPresent = post.get();
-            if (postPresent.getHeader().trim().equals("")){
+            if (postPresent.getHeader().trim().equals("")) {
                 return "redirect:/blog?header=emtpy";
             }
-            if (postPresent.getText().trim().equals("")){
+            if (postPresent.getText().trim().equals("")) {
                 return "redirect:/blog?text=empty";
             }
             final User userFromSession = (User) session.getAttribute("user");
-            if (userFromSession == null){
+            if (userFromSession == null) {
                 return "redirect:/blog?user=unauthorized";
             }
             final Post postToSave = new Post(postPresent.getHeader(), postPresent.getText(), userFromSession.getId());
@@ -83,6 +86,49 @@ public class FormController {
             return "redirect:/blog?status=post_created";
         }
         return "redirect:/blog?status=error";
+    }
+
+    @Transactional
+    @PostMapping("/blog/update_post")
+    public String update_post(@ModelAttribute Optional<Post> post, HttpSession session) {
+        if (post.isPresent()) {
+            if (validateUserSession(session)) {
+                Post postFromOptional = post.get();
+                if (postFromOptional.getText().trim().equals("") || postFromOptional.getText().isEmpty()) {
+                    return "redirect:/blog/my_posts/" + postFromOptional.getId().toString() + "?text=empty";
+                }
+                if (postFromOptional.getHeader().trim().equals("") || postFromOptional.getHeader().isEmpty()) {
+                    return "redirect:/blog/my_posts/" + postFromOptional.getId().toString() + "?header=empty";
+                }
+                if (!isUsersPost(session, postFromOptional.getId())) {
+                    return "redirect:/blog/my_posts?post=notYours";
+                }
+                if (postService.updatePost(postFromOptional.getHeader(), postFromOptional.getText(), postFromOptional.getId()) == 1) {
+                    return "redirect:/blog/my_posts?post=updated";
+                } else {
+                    return "redirect:/blog/my_posts/" + postFromOptional.getId().toString() + "?status=serverError";
+                }
+            }
+            return "redirect:/blog?status=error";
+        }
+        return "redirect:/blog?status=error";
+    }
+
+    private boolean validateUserSession(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return false;
+        }
+        User userFromSession = (User) session.getAttribute("user");
+        return userService.findByUsername(userFromSession.getUsername()).isPresent();
+    }
+
+    private boolean isUsersPost(HttpSession session, Long post_id) {
+        if (session.getAttribute("user") == null) {
+            return false;
+        }
+        User userFromSession = (User) session.getAttribute("user");
+        List<Post> allUserPosts = postService.getAllUserPosts(userFromSession.getId());
+        return allUserPosts.stream().anyMatch(p -> Objects.equals(p.getId(), post_id));
     }
 
 }

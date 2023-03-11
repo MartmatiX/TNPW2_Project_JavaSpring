@@ -28,4 +28,12 @@ public class PostService {
     public List<Post> getAllUserPosts(Long user_id){
         return postRepository.selectAllUserPosts(user_id);
     }
+
+    public List<Post> getIndividualPost(Long id){
+        return postRepository.selectIndividualPost(id);
+    }
+
+    public int updatePost(String header, String text, Long id){
+        return postRepository.updatePost(header, text, id);
+    }
 }

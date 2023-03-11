@@ -1,0 +1,11 @@
+<div th:insert="~{requires/header}"></div>
+    <main>
+        <form action="/blog/update_post" method="post">
+            <label th:text="${post?.username}"></label>
+            <input type="text" name="header" th:value="${post?.header}">
+            <input type="text" name="text" th:value="${post?.text}">
+            <input type="submit" value="Update">
+            <input type="hidden" name="id" th:value="${post?.id}">
+        </form>
+    </main>
+<div th:insert="~{requires/footer}"></div>
