@@ -115,6 +115,11 @@ public class FormController {
         return "redirect:/blog?status=error";
     }
 
+    @PostMapping("/blog/delete_post")
+    public String delete_post(@ModelAttribute Optional<Post> post, HttpSession session) {
+        return "redirect:/index?status=functionNotImplementedYet";
+    }
+
     @PostMapping("/profile/logout")
     public String logOut(HttpServletRequest request){
         HttpSession session = request.getSession();
