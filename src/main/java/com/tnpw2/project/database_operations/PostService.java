@@ -36,4 +36,9 @@ public class PostService {
     public int updatePost(String header, String text, Long id){
         return postRepository.updatePost(header, text, id);
     }
+
+    public boolean deletePost(Long id) {
+        postRepository.deleteById(id);
+        return true;
+    }
 }

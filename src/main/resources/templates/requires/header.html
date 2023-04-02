@@ -13,22 +13,22 @@
     <nav>
         <ul class="d-flex flex-row">
             <li>
-                <a th:href="@{/}" class="btn btn-dark border border-white p-3">Index</a>
+                <a th:href="@{/}" class="btn btn-dark border border-white ps-3 pe-3 p-2">Index</a>
             </li>
         </ul>
         <ul class="d-flex flex-row">
             <li th:style="${session.user == null ? 'display:block' : 'display:none'}">
-                <a th:href="@{/register_page}" class="btn btn-dark border border-white p-3">Register</a>
+                <a th:href="@{/register_page}" class="btn btn-dark border border-white ps-3 pe-3 p-2">Register</a>
             </li>
             <li th:style="${session.user == null ? 'display:block' : 'display:none'}">
-                <a th:href="@{/login_page}" class="btn btn-dark border border-white p-3">Log in</a>
+                <a th:href="@{/login_page}" class="btn btn-dark border border-white ps-3 pe-3 p-2">Log in</a>
             </li>
 
             <li th:style="${session.user != null ? 'display:block' : 'display:none'}">
-                <p th:if="${session.user != null }"><a th:href="@{/blog}" class="btn btn-dark border border-white p-3">Blog</a></p>
+                <p th:if="${session.user != null }"><a th:href="@{/blog}" class="btn btn-dark border border-white ps-3 pe-3 p-2">Blog</a></p>
             </li>
             <li th:style="${session.user != null ? 'display:block' : 'display:none'}">
-                <p th:if="${session.user != null }"><a th:href="@{/profile}" class="btn btn-dark border border-white p-3">Profile</a></p>
+                <p th:if="${session.user != null }"><a th:href="@{/profile}" class="btn btn-dark border border-white ps-3 pe-3 p-2">Profile</a></p>
             </li>
         </ul>
     </nav>

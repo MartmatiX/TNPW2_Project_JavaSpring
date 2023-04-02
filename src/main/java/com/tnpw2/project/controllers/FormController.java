@@ -117,7 +117,26 @@ public class FormController {
 
     @PostMapping("/blog/delete_post")
     public String delete_post(@ModelAttribute Optional<Post> post, HttpSession session) {
-        return "redirect:/index?status=functionNotImplementedYet";
+        if (post.isPresent()) {
+            if (validateUserSession(session)) {
+                Long id = post.get().getId();
+                List<Post> individualPost = postService.getIndividualPost(id);
+                if (individualPost.isEmpty()) {
+                    return "redirect:/blog/my_posts?error=postNotFound";
+                }
+                Long userId = individualPost.get(0).getUser_id();
+                User user = (User) session.getAttribute("user");
+                if (!Objects.equals(userId, user.getId())) {
+                    return "redirect:/blog/my_posts?error=notYourPost";
+                }
+                if (postService.deletePost(id)) {
+                    return "redirect:/blog/my_posts?status=postDeleted";
+                } else {
+                    return "redirect:/blog/my_posts?status=databaseError";
+                }
+            }
+        }
+        return "redirect:/blog?status=error";
     }
 
     @PostMapping("/profile/logout")
